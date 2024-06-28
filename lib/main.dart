@@ -2,7 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'banbenyi/page/index_page.dart';
+import 'banbenyi/page/first_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         builder: (_, child) => GetMaterialApp(
               builder: BotToastInit(), //1.调用BotToastInit
               navigatorObservers: [BotToastNavigatorObserver()], //2.注册路由观察者
-              home: const IndexPage(),
+              home: const FirstPage(),
               title: '血染钟楼',
               debugShowCheckedModeBanner: true,
               theme: ThemeData(

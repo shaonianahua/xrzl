@@ -4,10 +4,13 @@ import 'package:xrzl/banbenyi/page/night_page.dart';
 import 'package:xrzl/common/widget/xwidget.dart';
 
 class IndexController extends GetxController {
+  int userType = 0;//用户身份 1-玩家 2-说书人
+  RxString userName = RxString(""); //玩家姓名
   String lastEnemyName = ""; //上一个宿敌的名字 方便更新
-  String dangfuName = "";//选择荡妇的人 方便变身时找到
+  String dangfuName = ""; //选择荡妇的人 方便变身时找到
   RxInt peopleNum = RxInt(0);
-  RxMap<String, RxMap<String, dynamic>> peopleMap = RxMap();
+  RxMap<String, RxMap<String, dynamic>> peopleMap =
+      RxMap(); //玩家姓名-name 存活状态-status 角色-role 宿敌-enemy 中毒-poison 被僧侣保护-protect 存活状态-alive 是否变恶魔-isDevil 酒鬼假身份-drunkId 邪恶假身份-devil
   RxMap<int, dynamic> roleMap = RxMap({
     1: {
       "name": "洗衣妇",
@@ -144,7 +147,7 @@ class IndexController extends GetxController {
       //邪恶阵营假身份
       peopleMap[name]?['devil'] = falseId;
     }
-    if(roleId == 18){
+    if (roleId == 18) {
       dangfuName = name;
     }
     peopleMap[name]?['role'] = roleId;
@@ -214,8 +217,8 @@ class IndexController extends GetxController {
   }
 
   //荡妇变身
-  changeDevil(){
-    if(dangfuName!=""){
+  changeDevil() {
+    if (dangfuName != "") {
       peopleMap[dangfuName]?['isDevil'] = true;
     }
   }

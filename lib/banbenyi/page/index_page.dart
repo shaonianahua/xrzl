@@ -19,14 +19,13 @@ class _IndexPageState extends State<IndexPage> {
   @override
   void initState() {
     super.initState();
-    indexController = IndexController();
-    Get.put(indexController);
+    indexController = Get.find<IndexController>();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: XWidget.myAppbar("血染钟楼-人员确定", false,context),
+        appBar: XWidget.myAppbar("血染钟楼-人员确定", false, context),
         body: Padding(
           padding: EdgeInsets.symmetric(vertical: 30.w, horizontal: 30.w),
           child: Column(

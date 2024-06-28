@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,7 @@ import 'package:xrzl/banbenyi/controller/index_controller.dart';
 import 'package:xrzl/banbenyi/page/night_page.dart';
 import 'package:xrzl/common/widget/xconfig.dart';
 import 'package:xrzl/common/widget/xwidget.dart';
+import 'package:xrzl/services/dio_utils.dart';
 
 class RoleIndex extends StatefulWidget {
   const RoleIndex({super.key});
@@ -120,8 +123,9 @@ class _RoleIndexState extends State<RoleIndex> {
                         "请搭配配置，${indexController.peopleNum.value}人局需要${XConfig.roleConfig[indexController.peopleNum.value]![0]}个村民，${XConfig.roleConfig[indexController.peopleNum.value]![1]}个外来者，${XConfig.roleConfig[indexController.peopleNum.value]![2]}个爪牙，1个恶魔");
                     return;
                   }
-
                   if (canPlay) {
+                    //配置初始化信息参数
+                    DioUtils.saveInfo(jsonEncode(indexController.peopleMap));
                     indexController.journal("天黑了，进入第1个黑夜");
                     Get.to(const NightPage());
                   }
