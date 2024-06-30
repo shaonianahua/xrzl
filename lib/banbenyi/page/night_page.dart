@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:xrzl/banbenyi/controller/index_controller.dart';
+import 'package:xrzl/banbenyi/page/jiugui_page.dart';
 import 'package:xrzl/banbenyi/widget/chushi_widget.dart';
 import 'package:xrzl/banbenyi/widget/dangfu_widget.dart';
 import 'package:xrzl/banbenyi/widget/diaocha_widget.dart';
@@ -83,7 +84,23 @@ class _NightPageState extends State<NightPage> {
                       borderRadius: BorderRadius.all(Radius.circular(8.w))),
                   alignment: Alignment.center,
                   child: const Text("数据面板"),
-                ))
+                )),
+                SizedBox(
+              height: 100.w,
+            ),
+            GestureDetector(
+                onTap: () {
+                  Get.to(const JiuguiWidget());
+                },
+                child: Container(
+                  width: 200.w,
+                  height: 70.w,
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(194, 233, 197, 14),
+                      borderRadius: BorderRadius.all(Radius.circular(8.w))),
+                  alignment: Alignment.center,
+                  child: const Text("给酒鬼信息"),
+                )),
           ],
         ));
   }

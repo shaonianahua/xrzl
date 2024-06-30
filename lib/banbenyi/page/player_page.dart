@@ -115,9 +115,30 @@ class _PlayerPageState extends State<PlayerPage> {
             ),
             Obx(() {
               if (indexController.playerInfo.isNotEmpty &&
-                  indexController.playerInfo?['content']?['roleId'] ==
+                  indexController.playerInfo['content']?['roleId'] ==
                       indexController.playerRoleId) {
                 return checkInfo();
+              } else {
+                return Container();
+              }
+            }),
+            SizedBox(
+              height: 50.w,
+            ),
+            Obx(() {
+              if (indexController.playerInfo.isNotEmpty &&
+                  indexController.playerRoleId == 20) {
+                return jiandieWidget();
+              } else {
+                return Container();
+              }
+            }),
+            SizedBox(
+              height: 50.w,
+            ),
+            Obx(() {
+              if (indexController.playerInfo.isNotEmpty) {
+                return hideBtn();
               } else {
                 return Container();
               }
@@ -164,21 +185,55 @@ class _PlayerPageState extends State<PlayerPage> {
     return Column(
       children: [
         Text(
-            "角色：${XConfig.roleMap[indexController.playerInfo['user'][indexController.userName.value]['role']]}"),
+            "角色：${indexController.hide.value ? "" : XConfig.roleMap[indexController.playerInfo['user'][indexController.userName.value]['role']]}"),
         Text(
-            "状态：${(indexController.playerInfo['user'][indexController.userName.value]['alive'] ?? true) ? "活着" : "死了"}"),
+            "状态：${indexController.hide.value ? "" : (indexController.playerInfo['user'][indexController.userName.value]['alive'] ?? true) ? "活着" : "死了"}"),
         Text(
-            "假身份：${XConfig.roleMap[indexController.playerInfo['user'][indexController.userName.value]['devil']] ?? "无"}")
+            "假身份：${indexController.hide.value ? "" : XConfig.roleMap[indexController.playerInfo['user'][indexController.userName.value]['devil']] ?? "无"}")
       ],
     );
   }
+
+  //间谍魔典
+  Widget jiandieWidget() {
+    List<Widget> widgetList = [];
+    indexController.playerInfo['user'].forEach((key, value) {
+      widgetList.add(Text("$key:${XConfig.roleMap[value['role']]}"));
+    });
+    return Column(children: indexController.hide.value ? [] : widgetList);
+  }
+
+  //邪恶玩家信息
 
   //查验信息
   Widget checkInfo() {
     return Column(
       children: [
-        Text(indexController.playerInfo['content']['data']),
+        Text(indexController.hide.value
+            ? ""
+            : indexController.playerInfo['content']['data']),
       ],
+    );
+  }
+
+  //隐藏按钮
+  Widget hideBtn() {
+    return GestureDetector(
+      onTap: () {
+        indexController.hide.value = !indexController.hide.value;
+      },
+      child: Container(
+        width: 500.w,
+        height: 70.w,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: const Color(0xFF2E71F8),
+            borderRadius: BorderRadius.all(Radius.circular(8.w))),
+        child: Text(
+          "隐藏/展示信息",
+          style: TextStyle(color: Colors.white, fontSize: 32.sp),
+        ),
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:xrzl/banbenyi/page/day_page.dart';
 import 'package:xrzl/banbenyi/page/night_page.dart';
 import 'package:xrzl/common/widget/xwidget.dart';
@@ -8,6 +9,7 @@ import 'package:xrzl/services/dio_utils.dart';
 class IndexController extends GetxController {
   int userType = 0; //用户身份 1-玩家 2-说书人
   int playerRoleId = 0; //玩家扮演的角色id
+  RxBool hide = RxBool(false);//玩家隐藏信息
   RxString userName = RxString(""); //玩家姓名
   String lastEnemyName = ""; //上一个宿敌的名字 方便更新
   String dangfuName = ""; //选择荡妇的人 方便变身时找到
