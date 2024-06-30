@@ -88,6 +88,7 @@ class _ChushiWidgetState extends State<ChushiWidget> {
                   !(indexController.roleMap[roleId]['false'] ?? false) &&
                   num != -1) {
                 indexController.journal("厨师得知了有$num对邪恶玩家相邻");
+                indexController.sendPlayerInfo("你得知了有$num对邪恶玩家相邻",roleId: roleId);
                 indexController.nextStep();
               } else if (!indexController.roleMap[roleId]['isSelect'] ||
                   (indexController.roleMap[roleId]['false'] ?? false)) {

@@ -149,6 +149,9 @@ class _ShouyaWidgetState extends State<ShouyaWidget> {
                   role != 0) {
                 indexController
                     .journal("养鸦人选择查验了$name得知了他是${XConfig.roleMap[role]}");
+                indexController.sendPlayerInfo(
+                    "你查验了$name得知了他是${XConfig.roleMap[role]}",
+                    roleId: roleId);
                 indexController.nextStep();
               } else if (!indexController.roleMap[roleId]['isSelect'] ||
                   (indexController.roleMap[roleId]['false'] ?? false) ||

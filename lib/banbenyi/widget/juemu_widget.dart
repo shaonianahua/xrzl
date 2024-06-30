@@ -112,6 +112,8 @@ class _JuemuWidgetState extends State<JuemuWidget> {
                   role != 0 &&
                   !indexController.roleDieList.contains(roleId)) {
                 indexController.journal("掘墓人得知了他是${XConfig.roleMap[role]}");
+                indexController.sendPlayerInfo("你得知了他是${XConfig.roleMap[role]}",
+                    roleId: roleId);
                 indexController.nextStep();
               } else if (!indexController.roleMap[roleId]['isSelect'] ||
                   (indexController.roleMap[roleId]['false'] ??

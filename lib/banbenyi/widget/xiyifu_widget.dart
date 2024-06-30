@@ -143,6 +143,9 @@ class _XiyifuWidgetState extends State<XiyifuWidget> {
                   role != 0) {
                 indexController
                     .journal("洗衣妇得知了$name1和$name2中存在${XConfig.roleMap[role]}");
+                indexController.sendPlayerInfo(
+                    "你得知了$name1和$name2中存在${XConfig.roleMap[role]}",
+                    roleId: roleId);
                 indexController.nextStep();
               } else if (!indexController.roleMap[roleId]['isSelect'] ||
                   (indexController.roleMap[roleId]['false'] ?? false)) {

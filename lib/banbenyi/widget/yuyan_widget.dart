@@ -163,6 +163,9 @@ class _YuyanWidgetState extends State<YuyanWidget> {
                   !indexController.roleDieList.contains(roleId)) {
                 indexController
                     .journal("预言家得知了$name1和$name2中${have ? "存在" : "不存在"}恶魔");
+                indexController.sendPlayerInfo(
+                    "你得知了$name1和$name2中${have ? "存在" : "不存在"}恶魔",
+                    roleId: roleId);
                 indexController.nextStep();
               } else if (!indexController.roleMap[roleId]['isSelect'] ||
                   (indexController.roleMap[roleId]['false'] ?? false) ||

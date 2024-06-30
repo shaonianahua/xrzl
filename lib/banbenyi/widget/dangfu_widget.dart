@@ -116,6 +116,9 @@ class _DangfuWidgetState extends State<DangfuWidget> {
                   indexController.changeDevil();
                 }
                 indexController.journal("荡妇${isDevil ? "变成了" : "没变成"}恶魔");
+                indexController.sendPlayerInfo(
+                    "你${isDevil ? "变成了" : "没变成"}恶魔，${isDevil ? "当说书人说出恶魔请睁眼的时候，你需要睁眼完成杀人" : ""}",
+                    roleId: roleId);
                 indexController.nextStep();
               } else {
                 indexController.nextStep();

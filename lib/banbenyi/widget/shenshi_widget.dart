@@ -91,6 +91,8 @@ class _ShenshiWidgetState extends State<ShenshiWidget> {
                   num != -1 &&
                   !indexController.roleDieList.contains(roleId)) {
                 indexController.journal("神使得知了有$num个邪恶玩家与自己相邻");
+                indexController.sendPlayerInfo("你得知了有$num个邪恶玩家与自己相邻",
+                    roleId: roleId);
                 indexController.nextStep();
               } else if (!indexController.roleMap[roleId]['isSelect'] ||
                   (indexController.roleMap[roleId]['false'] ?? false) ||

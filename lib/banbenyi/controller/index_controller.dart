@@ -1,13 +1,17 @@
+import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:xrzl/banbenyi/page/day_page.dart';
 import 'package:xrzl/banbenyi/page/night_page.dart';
 import 'package:xrzl/common/widget/xwidget.dart';
+import 'package:xrzl/services/dio_utils.dart';
 
 class IndexController extends GetxController {
-  int userType = 0;//用户身份 1-玩家 2-说书人
+  int userType = 0; //用户身份 1-玩家 2-说书人
+  int playerRoleId = 0; //玩家扮演的角色id
   RxString userName = RxString(""); //玩家姓名
   String lastEnemyName = ""; //上一个宿敌的名字 方便更新
   String dangfuName = ""; //选择荡妇的人 方便变身时找到
+  RxMap<String, dynamic> playerInfo = RxMap(); //玩家信息
   RxInt peopleNum = RxInt(0);
   RxMap<String, RxMap<String, dynamic>> peopleMap =
       RxMap(); //玩家姓名-name 存活状态-status 角色-role 宿敌-enemy 中毒-poison 被僧侣保护-protect 存活状态-alive 是否变恶魔-isDevil 酒鬼假身份-drunkId 邪恶假身份-devil
@@ -110,16 +114,6 @@ class IndexController extends GetxController {
   List<String> journalList = []; //日志列表
   List<int> roleDieList = []; //角色死亡记录列表
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   //更新角色信息
   updateRole(int roleId, String name,
       {int falseId = 0, String enemyName = ""}) {
@@ -165,6 +159,7 @@ class IndexController extends GetxController {
       isNight.value = true;
       journal("天黑了，进入第$nightIndex个黑夜");
       XWidget.showTextTip("天黑了");
+      sendPlayerInfo("");
       Get.to(const NightPage());
     } else {
       //黑夜就往后执行新的角色 没有的话进入白天
@@ -176,6 +171,7 @@ class IndexController extends GetxController {
           XWidget.showTextTip("天亮了");
           Get.to(const DayPage());
           journal("天亮了，进入第$nightIndex个白天");
+          sendPlayerInfo("");
         } else {
           flowIndex.value++;
         }
@@ -186,6 +182,7 @@ class IndexController extends GetxController {
           XWidget.showTextTip("天亮了");
           Get.to(const DayPage());
           journal("天亮了，进入第$nightIndex个白天");
+          sendPlayerInfo("");
         } else {
           flowIndex.value++;
         }
@@ -221,5 +218,33 @@ class IndexController extends GetxController {
     if (dangfuName != "") {
       peopleMap[dangfuName]?['isDevil'] = true;
     }
+  }
+
+  //说书人发送信息
+  sendPlayerInfo(String content, {int roleId = 0}) async {
+    //分多种情况
+    //1 角色选完了发送 告诉玩家身份及假身份信息
+    //2 黑夜发送 只发送查验到的信息 不发送死亡信息
+    //3 白天发送 只发送玩家信息 包括死亡状态 刚进白天和即将进入黑夜都需要
+    Map<String, dynamic> result = {};
+    if (roleId == 0) {
+      result['user'] = peopleMap;
+    } else {
+      String str = await DioUtils.getInfo();
+      result = jsonDecode(str);
+      result['content'] = {"roleId": roleId, "data": content};
+    }
+    print(result);
+
+    DioUtils.saveInfo(jsonEncode(result));
+  }
+
+  //玩家查询信息
+  getPlayerInfo() async {
+    String str = await DioUtils.getInfo();
+    Map<String, dynamic> result = jsonDecode(str);
+    print(result);
+    playerInfo.value = result;
+    playerRoleId = result['user'][userName.value]['role'];
   }
 }

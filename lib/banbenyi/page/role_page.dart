@@ -125,7 +125,7 @@ class _RoleIndexState extends State<RoleIndex> {
                   }
                   if (canPlay) {
                     //配置初始化信息参数
-                    DioUtils.saveInfo(jsonEncode(indexController.peopleMap));
+                    indexController.sendPlayerInfo("");
                     indexController.journal("天黑了，进入第1个黑夜");
                     Get.to(const NightPage());
                   }

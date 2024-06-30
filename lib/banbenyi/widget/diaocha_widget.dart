@@ -143,6 +143,9 @@ class _DiaochaWidgetState extends State<DiaochaWidget> {
                   role != 0) {
                 indexController
                     .journal("调查员得知了$name1和$name2中存在${XConfig.roleMap[role]}");
+                indexController.sendPlayerInfo(
+                    "你得知了$name1和$name2中存在${XConfig.roleMap[role]}",
+                    roleId: roleId);
                 indexController.nextStep();
               } else if (!indexController.roleMap[roleId]['isSelect'] ||
                   (indexController.roleMap[roleId]['false'] ?? false)) {

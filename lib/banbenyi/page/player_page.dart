@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:xrzl/banbenyi/controller/index_controller.dart';
+import 'package:xrzl/common/widget/xconfig.dart';
 import 'package:xrzl/common/widget/xwidget.dart';
 
 //玩家界面
@@ -80,8 +81,7 @@ class _PlayerPageState extends State<PlayerPage> {
               if (indexController.userName.value != "") {
                 return GestureDetector(
                   onTap: () {
-                    indexController.userName.value =
-                        textController.text.toString();
+                    indexController.getPlayerInfo();
                   },
                   child: Container(
                     width: 500.w,
@@ -99,7 +99,29 @@ class _PlayerPageState extends State<PlayerPage> {
               } else {
                 return Container();
               }
-            })
+            }),
+            SizedBox(
+              height: 60.w,
+            ),
+            Obx(() {
+              if (indexController.playerInfo.isNotEmpty) {
+                return userInfo();
+              } else {
+                return Container();
+              }
+            }),
+            SizedBox(
+              height: 50.w,
+            ),
+            Obx(() {
+              if (indexController.playerInfo.isNotEmpty &&
+                  indexController.playerInfo?['content']?['roleId'] ==
+                      indexController.playerRoleId) {
+                return checkInfo();
+              } else {
+                return Container();
+              }
+            }),
           ],
         ),
       ),
@@ -134,6 +156,29 @@ class _PlayerPageState extends State<PlayerPage> {
                 decoration: TextDecoration.none)),
         autofocus: false,
       ),
+    );
+  }
+
+  //用户信息
+  Widget userInfo() {
+    return Column(
+      children: [
+        Text(
+            "角色：${XConfig.roleMap[indexController.playerInfo['user'][indexController.userName.value]['role']]}"),
+        Text(
+            "状态：${(indexController.playerInfo['user'][indexController.userName.value]['alive'] ?? true) ? "活着" : "死了"}"),
+        Text(
+            "假身份：${XConfig.roleMap[indexController.playerInfo['user'][indexController.userName.value]['devil']] ?? "无"}")
+      ],
+    );
+  }
+
+  //查验信息
+  Widget checkInfo() {
+    return Column(
+      children: [
+        Text(indexController.playerInfo['content']['data']),
+      ],
     );
   }
 }
