@@ -33,7 +33,7 @@ class _RoleIndexState extends State<RoleIndex> {
         return Column(
           children: [
             Text(
-                "本场需要${XConfig.roleConfig[indexController.peopleNum.value]![0]}个村民，${XConfig.roleConfig[indexController.peopleNum.value]![1]}个外来者，${XConfig.roleConfig[indexController.peopleNum.value]![2]}个爪牙，1个恶魔"),
+                "本场需要${indexController.roleMap[19]['isSelect'] ? XConfig.roleConfig[indexController.peopleNum.value]![0] - 2 : XConfig.roleConfig[indexController.peopleNum.value]![0]}个村民，${indexController.roleMap[19]['isSelect'] ? XConfig.roleConfig[indexController.peopleNum.value]![1] + 2 : XConfig.roleConfig[indexController.peopleNum.value]![1]}个外来者，${XConfig.roleConfig[indexController.peopleNum.value]![2]}个爪牙，1个恶魔"),
             SizedBox(
               height: 20.w,
             ),
@@ -117,7 +117,7 @@ class _RoleIndexState extends State<RoleIndex> {
                   }
                   if (!canPlay) {
                     XWidget.showTextTip(
-                        "请搭配配置，${indexController.peopleNum.value}人局需要${XConfig.roleConfig[indexController.peopleNum.value]![0]}个村民，${XConfig.roleConfig[indexController.peopleNum.value]![1]}个外来者，${XConfig.roleConfig[indexController.peopleNum.value]![2]}个爪牙，1个恶魔");
+                        "请搭配配置，${indexController.peopleNum.value}人局需要${indexController.roleMap[19]['isSelect'] ? XConfig.roleConfig[indexController.peopleNum.value]![0] - 2 : XConfig.roleConfig[indexController.peopleNum.value]![0]}个村民，${indexController.roleMap[19]['isSelect'] ? XConfig.roleConfig[indexController.peopleNum.value]![1] + 2 : XConfig.roleConfig[indexController.peopleNum.value]![1]}个外来者，${XConfig.roleConfig[indexController.peopleNum.value]![2]}个爪牙，1个恶魔");
                     return;
                   }
                   if (canPlay) {

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:xrzl/banbenyi/page/day_page.dart';
 import 'package:xrzl/banbenyi/page/night_page.dart';
 import 'package:xrzl/common/widget/xwidget.dart';
@@ -9,12 +8,13 @@ import 'package:xrzl/services/dio_utils.dart';
 class IndexController extends GetxController {
   int userType = 0; //用户身份 1-玩家 2-说书人
   int playerRoleId = 0; //玩家扮演的角色id
-  RxBool hide = RxBool(false);//玩家隐藏信息
+  RxBool hide = RxBool(false); //玩家隐藏信息
   RxString userName = RxString(""); //玩家姓名
   String lastEnemyName = ""; //上一个宿敌的名字 方便更新
   String dangfuName = ""; //选择荡妇的人 方便变身时找到
   RxMap<String, dynamic> playerInfo = RxMap(); //玩家信息
   RxInt peopleNum = RxInt(0);
+  String lastNightDieName = ""; //上个夜晚死的人 天亮了需要马上更新数据
   RxMap<String, RxMap<String, dynamic>> peopleMap =
       RxMap(); //玩家姓名-name 存活状态-status 角色-role 宿敌-enemy 中毒-poison 被僧侣保护-protect 存活状态-alive 是否变恶魔-isDevil 酒鬼假身份-drunkId 邪恶假身份-devil
   RxMap<int, dynamic> roleMap = RxMap({
@@ -170,6 +170,10 @@ class IndexController extends GetxController {
           //最后一名角色
           isNight.value = false;
           nightIndex.value++;
+          if (lastNightDieName != "") {
+            peopleMap[lastNightDieName]?['alive'] = false;
+            roleDieList.add(peopleMap[lastNightDieName]?['role']);
+          }
           XWidget.showTextTip("天亮了");
           Get.to(const DayPage());
           journal("天亮了，进入第$nightIndex个白天");
@@ -181,6 +185,10 @@ class IndexController extends GetxController {
         if (flowListOther.length - 1 == flowIndex.value) {
           isNight.value = false;
           nightIndex.value++;
+          if (lastNightDieName != "") {
+            peopleMap[lastNightDieName]?['alive'] = false;
+            roleDieList.add(peopleMap[lastNightDieName]?['role']);
+          }
           XWidget.showTextTip("天亮了");
           Get.to(const DayPage());
           journal("天亮了，进入第$nightIndex个白天");
@@ -211,8 +219,12 @@ class IndexController extends GetxController {
 
   //死亡记录
   die(String name) {
-    peopleMap[name]?['alive'] = false;
-    roleDieList.add(peopleMap[name]?['role']);
+    if (isNight.value) {
+      lastNightDieName = name;
+    } else {
+      peopleMap[name]?['alive'] = false;
+      roleDieList.add(peopleMap[name]?['role']);
+    }
   }
 
   //荡妇变身
@@ -232,12 +244,10 @@ class IndexController extends GetxController {
     if (roleId == 0) {
       result['user'] = peopleMap;
     } else {
-      String str = await DioUtils.getInfo();
-      result = jsonDecode(str);
+      // String str = await DioUtils.getInfo();
+      // result = jsonDecode(str);
       result['content'] = {"roleId": roleId, "data": content};
     }
-    print(result);
-
     DioUtils.saveInfo(jsonEncode(result));
   }
 
@@ -245,7 +255,6 @@ class IndexController extends GetxController {
   getPlayerInfo() async {
     String str = await DioUtils.getInfo();
     Map<String, dynamic> result = jsonDecode(str);
-    print(result);
     playerInfo.value = result;
     playerRoleId = result['user'][userName.value]['role'];
   }

@@ -61,6 +61,12 @@ class _NightPageState extends State<NightPage> {
         body: Column(
           children: [
             Obx(() {
+              return userName();
+            }),
+            SizedBox(
+              height: 50.w,
+            ),
+            Obx(() {
               return indexController.nightIndex.value == 1
                   ? (flowList[indexController
                           .flowListFirst[indexController.flowIndex.value]] ??
@@ -85,7 +91,7 @@ class _NightPageState extends State<NightPage> {
                   alignment: Alignment.center,
                   child: const Text("数据面板"),
                 )),
-                SizedBox(
+            SizedBox(
               height: 100.w,
             ),
             GestureDetector(
@@ -103,5 +109,21 @@ class _NightPageState extends State<NightPage> {
                 )),
           ],
         ));
+  }
+
+  Widget userName() {
+    String name = "";
+    int roleId = indexController.nightIndex.value == 1
+        ? indexController.flowListFirst[indexController.flowIndex.value]
+        : indexController.flowListOther[indexController.flowIndex.value];
+    indexController.peopleMap.forEach((key, value) {
+      if (value['role'] == roleId) {
+        name = key;
+      }
+    });
+    return Text(
+      "当前玩家：$name",
+      style: TextStyle(fontSize: 32.sp),
+    );
   }
 }

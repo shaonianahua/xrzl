@@ -47,6 +47,12 @@ class _JiuguiWidgetState extends State<JiuguiWidget> {
     } else if (roleId == 6 && name1 != "" && name2 != "") {
       //预言家
       str = "你得知了$name1和$name2中${have ? "存在" : "不存在"}恶魔";
+    } else if (roleId == 7 && role != 0) {
+      //送葬者
+      str = "你得知了他是${XConfig.roleMap[role]}";
+    } else if (roleId == 9 && name != "" && role != 0) {
+      //养鸦人
+      str = "你查验了$name得知了他${XConfig.roleMap[role]}";
     }
     return str;
   }
@@ -123,6 +129,7 @@ class _JiuguiWidgetState extends State<JiuguiWidget> {
             ),
           if (roleId == 1 || roleId == 2 || roleId == 3 || roleId == 6)
             contentWidget(),
+          if (roleId == 7 || roleId == 9) contentWidget2(),
           SizedBox(
             height: 100.w,
           ),
@@ -131,7 +138,11 @@ class _JiuguiWidgetState extends State<JiuguiWidget> {
             height: 30.w,
           ),
           GestureDetector(
-              onTap: () {},
+              onTap: () {
+                if (sendInfo() != "") {
+                  indexController.sendPlayerInfo(sendInfo(), roleId: 17);
+                }
+              },
               child: Container(
                 width: 200.w,
                 height: 70.w,
@@ -273,6 +284,82 @@ class _JiuguiWidgetState extends State<JiuguiWidget> {
           spacing: 25.w,
           runSpacing: 10.w,
           children: roleId != 6 ? roleWidgetList : yuyanList,
+        ),
+      ],
+    ));
+  }
+
+  Widget contentWidget2() {
+    List<Widget> peopleWidgetList = [];
+    List<Widget> roleWidgetList = [];
+    indexController.peopleMap.forEach((key, value) {
+      peopleWidgetList.add(GestureDetector(
+          onTap: () {
+            setState(() {
+              name = key;
+            });
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 10.w, horizontal: 20.w),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                color: Color(name == key ? 0xFF2E71F8 : 0xffeeeeee)),
+            child: Text(
+              XWidget.peopleNightInfo(key, value),
+              style: TextStyle(
+                  fontSize: 28.sp,
+                  color: Color(name == key ? 0xffffffff : 0xff222222)),
+            ),
+          )));
+    });
+
+    for (int i = 1; i < 22; i++) {
+      roleWidgetList.add(GestureDetector(
+          onTap: () {
+            setState(() {
+              role = i;
+            });
+          },
+          child: Container(
+            width: 200.w,
+            alignment: Alignment.center,
+            height: 60.w,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(8.w)),
+                color: Color(role == i ? 0xFF2E71F8 : 0xffeeeeee)),
+            child: Text(
+              XConfig.roleMap[i] ?? "",
+              style: TextStyle(
+                  fontSize: 28.sp,
+                  color: Color(role == i ? 0xffffffff : 0xff222222)),
+            ),
+          )));
+    }
+
+    return Center(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Text("选择玩家（1个）"),
+        SizedBox(
+          height: 20.w,
+        ),
+        Wrap(
+          spacing: 25.w,
+          runSpacing: 10.w,
+          children: peopleWidgetList,
+        ),
+        SizedBox(
+          height: 20.w,
+        ),
+        const Text("选择角色"),
+        SizedBox(
+          height: 20.w,
+        ),
+        Wrap(
+          spacing: 25.w,
+          runSpacing: 10.w,
+          children: roleWidgetList,
         ),
       ],
     ));

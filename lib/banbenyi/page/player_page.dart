@@ -184,12 +184,19 @@ class _PlayerPageState extends State<PlayerPage> {
   Widget userInfo() {
     return Column(
       children: [
-        Text(
-            "角色：${indexController.hide.value ? "" : XConfig.roleMap[indexController.playerInfo['user'][indexController.userName.value]['role']]}"),
+        indexController.playerInfo['user'][indexController.userName.value]
+                    ['role'] ==
+                17
+            ? Text(
+                "角色：${indexController.hide.value ? "" : XConfig.roleMap[indexController.playerInfo['user'][indexController.userName.value]['drunkId']]}")
+            : Text(
+                "角色：${indexController.hide.value ? "" : XConfig.roleMap[indexController.playerInfo['user'][indexController.userName.value]['role']]}"),
         Text(
             "状态：${indexController.hide.value ? "" : (indexController.playerInfo['user'][indexController.userName.value]['alive'] ?? true) ? "活着" : "死了"}"),
         Text(
-            "假身份：${indexController.hide.value ? "" : XConfig.roleMap[indexController.playerInfo['user'][indexController.userName.value]['devil']] ?? "无"}")
+            "假身份：${indexController.hide.value ? "" : XConfig.roleMap[indexController.playerInfo['user'][indexController.userName.value]['devil']] ?? "无"}"),
+        if (indexController.playerRoleId > 17) //邪恶玩家
+          xieeWidget()
       ],
     );
   }
@@ -203,8 +210,6 @@ class _PlayerPageState extends State<PlayerPage> {
     return Column(children: indexController.hide.value ? [] : widgetList);
   }
 
-  //邪恶玩家信息
-
   //查验信息
   Widget checkInfo() {
     return Column(
@@ -214,6 +219,19 @@ class _PlayerPageState extends State<PlayerPage> {
             : indexController.playerInfo['content']['data']),
       ],
     );
+  }
+
+  //邪恶玩家信息
+  Widget xieeWidget() {
+    List<Widget> widgetList = [];
+    widgetList.add(const Text("邪恶玩家阵营："));
+    indexController.playerInfo['user'].forEach((key, value) {
+      if (value['role'] > 17) {
+        widgetList.add(Text(
+            "$key:${XConfig.roleMap[value['role']]}，假身份：${XConfig.roleMap[value['devil']]}"));
+      }
+    });
+    return Column(children: indexController.hide.value ? [] : widgetList);
   }
 
   //隐藏按钮
