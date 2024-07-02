@@ -4,15 +4,15 @@ import 'package:get/get.dart';
 import 'package:xrzl/banbenyi/controller/index_controller.dart';
 import 'package:xrzl/common/widget/xwidget.dart';
 
-//毒师组件
-class DushiWidget extends StatefulWidget {
-  const DushiWidget({super.key});
+//下毒者组件
+class XiaduzheWidget extends StatefulWidget {
+  const XiaduzheWidget({super.key});
 
   @override
-  State<DushiWidget> createState() => _DushiWidgetState();
+  State<XiaduzheWidget> createState() => _XiaduzheWidgetState();
 }
 
-class _DushiWidgetState extends State<DushiWidget> {
+class _XiaduzheWidgetState extends State<XiaduzheWidget> {
   late IndexController indexController;
   String name = "";
   int roleId = 21;
@@ -63,8 +63,8 @@ class _DushiWidgetState extends State<DushiWidget> {
           indexController.roleMap[roleId]['isSelect'] &&
                   !(indexController.roleMap[roleId]['false'] ?? false) &&
                   !indexController.roleDieList.contains(roleId)
-              ? "毒师操作：下毒"
-              : "毒师操作：本场并无毒师或已死亡 请表演：毒师请睁眼，毒师要给谁下毒，好的，毒师请闭眼",
+              ? "下毒者操作：下毒"
+              : "下毒者操作：本场并无下毒者或已死亡 请表演：下毒者请睁眼，下毒者要给谁下毒，好的，下毒者请闭眼",
           style: TextStyle(fontSize: 33.sp),
         ),
         SizedBox(
@@ -85,7 +85,7 @@ class _DushiWidgetState extends State<DushiWidget> {
                   name != "" &&
                   !indexController.roleDieList.contains(roleId)) {
                 indexController.peopleMap[name]!['poison'] = true;
-                indexController.journal("毒师对$name下毒了");
+                indexController.journal("下毒者对$name下毒了");
                 indexController.nextStep();
               } else if (!indexController.roleMap[roleId]['isSelect'] ||
                   (indexController.roleMap[roleId]['false'] ?? false) || indexController.roleDieList.contains(roleId)) {

@@ -4,15 +4,15 @@ import 'package:get/get.dart';
 import 'package:xrzl/banbenyi/controller/index_controller.dart';
 import 'package:xrzl/common/widget/xwidget.dart';
 
-//预言家组件
-class YuyanWidget extends StatefulWidget {
-  const YuyanWidget({super.key});
+//占卜师组件
+class ZhanbuWidget extends StatefulWidget {
+  const ZhanbuWidget({super.key});
 
   @override
-  State<YuyanWidget> createState() => _YuyanWidgetState();
+  State<ZhanbuWidget> createState() => _ZhanbuWidgetState();
 }
 
-class _YuyanWidgetState extends State<YuyanWidget> {
+class _ZhanbuWidgetState extends State<ZhanbuWidget> {
   late IndexController indexController;
   String name1 = "";
   String name2 = "";
@@ -123,8 +123,8 @@ class _YuyanWidgetState extends State<YuyanWidget> {
           indexController.roleMap[roleId]['isSelect'] &&
                   !(indexController.roleMap[roleId]['false'] ?? false) &&
                   !indexController.roleDieList.contains(roleId)
-              ? "预言家操作：预言家自己选择两个人告知是否存在恶魔"
-              : "预言家操作：本场并无预言家或预言家已死亡 请表演：预言家请睁眼，请选择查验的人 他与她之中的恶魔数量是这个 预言家请闭眼",
+              ? "占卜师操作：占卜师自己选择两个人告知是否存在恶魔"
+              : "占卜师操作：本场并无占卜师或占卜师已死亡 请表演：占卜师请睁眼，请选择查验的人 他与她之中的恶魔数量是这个 占卜师请闭眼",
           style: TextStyle(fontSize: 33.sp),
         ),
         SizedBox(
@@ -162,7 +162,7 @@ class _YuyanWidgetState extends State<YuyanWidget> {
                   name2 != "" &&
                   !indexController.roleDieList.contains(roleId)) {
                 indexController
-                    .journal("预言家得知了$name1和$name2中${have ? "存在" : "不存在"}恶魔");
+                    .journal("占卜师得知了$name1和$name2中${have ? "存在" : "不存在"}恶魔");
                 indexController.sendPlayerInfo(
                     "你得知了$name1和$name2中${have ? "存在" : "不存在"}恶魔",
                     roleId: roleId);

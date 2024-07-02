@@ -5,7 +5,7 @@ import 'package:xrzl/banbenyi/controller/index_controller.dart';
 import 'package:xrzl/common/widget/xconfig.dart';
 import 'package:xrzl/common/widget/xwidget.dart';
 
-//养鸦人组件
+//守鸦人组件
 class ShouyaWidget extends StatefulWidget {
   const ShouyaWidget({super.key});
 
@@ -110,8 +110,8 @@ class _ShouyaWidgetState extends State<ShouyaWidget> {
         Text(
           indexController.roleMap[roleId]['isSelect'] &&
                   !(indexController.roleMap[roleId]['false'] ?? false)
-              ? "养鸦人操作：如果死了 可以查一个人身份 只能查一次 如果中毒了可能会查到假身份"
-              : "养鸦人操作：本场并无养鸦人 请表演：养鸦人请睁眼，你今晚的状态是这个 养鸦人请闭眼",
+              ? "守鸦人操作：如果死了 可以查一个人身份 只能查一次 如果中毒了可能会查到假身份"
+              : "守鸦人操作：本场并无守鸦人 请表演：守鸦人请睁眼，你今晚的状态是这个 守鸦人请闭眼",
           style: TextStyle(fontSize: 33.sp),
         ),
         SizedBox(
@@ -148,7 +148,7 @@ class _ShouyaWidgetState extends State<ShouyaWidget> {
                   name != "" &&
                   role != 0) {
                 indexController
-                    .journal("养鸦人选择查验了$name得知了他是${XConfig.roleMap[role]}");
+                    .journal("守鸦人选择查验了$name得知了他是${XConfig.roleMap[role]}");
                 indexController.sendPlayerInfo(
                     "你查验了$name得知了他是${XConfig.roleMap[role]}",
                     roleId: roleId);

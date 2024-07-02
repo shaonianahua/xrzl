@@ -6,17 +6,17 @@ import 'package:xrzl/banbenyi/page/jiugui_page.dart';
 import 'package:xrzl/banbenyi/widget/chushi_widget.dart';
 import 'package:xrzl/banbenyi/widget/dangfu_widget.dart';
 import 'package:xrzl/banbenyi/widget/diaocha_widget.dart';
-import 'package:xrzl/banbenyi/widget/dushi_widget.dart';
+import 'package:xrzl/banbenyi/widget/xiadu_widget.dart';
 import 'package:xrzl/banbenyi/widget/emo_widget.dart';
 import 'package:xrzl/banbenyi/widget/guanjia_widget.dart';
 import 'package:xrzl/banbenyi/widget/jiandie_widget.dart';
 import 'package:xrzl/banbenyi/widget/juemu_widget.dart';
 import 'package:xrzl/banbenyi/widget/senglv_widget.dart';
-import 'package:xrzl/banbenyi/widget/shenshi_widget.dart';
+import 'package:xrzl/banbenyi/widget/gongqing_widget.dart';
 import 'package:xrzl/banbenyi/widget/shouya_widget.dart';
 import 'package:xrzl/banbenyi/widget/tushuyuan_widget.dart';
 import 'package:xrzl/banbenyi/widget/xiyifu_widget.dart';
-import 'package:xrzl/banbenyi/widget/yuyan_widget.dart';
+import 'package:xrzl/banbenyi/widget/zhanbu_widget.dart';
 import 'package:xrzl/common/widget/xwidget.dart';
 import 'info_page.dart';
 
@@ -38,13 +38,13 @@ class _NightPageState extends State<NightPage> {
   }
 
   Map<int, Widget> flowList = {
-    21: const DushiWidget(), //毒师
+    21: const XiaduzheWidget(), //下毒者
     1: const XiyifuWidget(), //洗衣妇
     2: const TushuyuanWidget(), //图书管理员
     3: const DiaochaWidget(), //调查员
     4: const ChushiWidget(), //厨师
-    5: const ShenshiWidget(), //神使
-    6: const YuyanWidget(), //预言家
+    5: const GongqingWidget(), //共情者
+    6: const ZhanbuWidget(), //占卜师
     15: const GuanjiaWidget(), //管家
     20: const JiandieWidget(), //间谍
     8: const SenglvWidget(), //僧侣
@@ -58,7 +58,7 @@ class _NightPageState extends State<NightPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: XWidget.myAppbar("血染钟楼-夜晚", true, context),
-        body: Column(
+        body: ListView(
           children: [
             Obx(() {
               return userName();

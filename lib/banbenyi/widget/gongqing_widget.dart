@@ -4,15 +4,15 @@ import 'package:get/get.dart';
 import 'package:xrzl/banbenyi/controller/index_controller.dart';
 import 'package:xrzl/common/widget/xwidget.dart';
 
-//神使组件
-class ShenshiWidget extends StatefulWidget {
-  const ShenshiWidget({super.key});
+//共情者组件
+class GongqingWidget extends StatefulWidget {
+  const GongqingWidget({super.key});
 
   @override
-  State<ShenshiWidget> createState() => _ShenshiWidgetState();
+  State<GongqingWidget> createState() => _GongqingWidgetState();
 }
 
-class _ShenshiWidgetState extends State<ShenshiWidget> {
+class _GongqingWidgetState extends State<GongqingWidget> {
   late IndexController indexController;
   int num = -1;
   int roleId = 5;
@@ -65,8 +65,8 @@ class _ShenshiWidgetState extends State<ShenshiWidget> {
           indexController.roleMap[roleId]['isSelect'] &&
                   !(indexController.roleMap[roleId]['false'] ?? false) &&
                   !indexController.roleDieList.contains(roleId)
-              ? "神使操作：告知有多少个邪恶阵营玩家与你相邻"
-              : "神使操作：本场并无神使或神使已死亡 请表演：神使请睁眼，一共有这么多邪恶玩家与你相邻 神使请闭眼",
+              ? "共情者操作：告知有多少个邪恶阵营玩家与你相邻"
+              : "共情者操作：本场并无共情者或共情者已死亡 请表演：共情者请睁眼，一共有这么多邪恶玩家与你相邻 共情者请闭眼",
           style: TextStyle(fontSize: 33.sp),
         ),
         SizedBox(
@@ -90,7 +90,7 @@ class _ShenshiWidgetState extends State<ShenshiWidget> {
                   !(indexController.roleMap[roleId]['false'] ?? false) &&
                   num != -1 &&
                   !indexController.roleDieList.contains(roleId)) {
-                indexController.journal("神使得知了有$num个邪恶玩家与自己相邻");
+                indexController.journal("共情者得知了有$num个邪恶玩家与自己相邻");
                 indexController.sendPlayerInfo("你得知了有$num个邪恶玩家与自己相邻",
                     roleId: roleId);
                 indexController.nextStep();

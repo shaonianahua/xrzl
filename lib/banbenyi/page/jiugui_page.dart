@@ -36,7 +36,7 @@ class _JiuguiWidgetState extends State<JiuguiWidget> {
       // 厨师
       str = "你得知了有$num对邪恶玩家相邻";
     } else if (roleId == 5 && num != -1) {
-      //神使
+      //共情者
       str = "你得知了有$num个邪恶玩家与自己相邻";
     } else if ((roleId == 1 || roleId == 2 || roleId == 3) &&
         name1 != "" &&
@@ -45,13 +45,13 @@ class _JiuguiWidgetState extends State<JiuguiWidget> {
       //洗衣妇 图书管理员 调查员
       str = "你得知了$name1和$name2中存在${XConfig.roleMap[role]}";
     } else if (roleId == 6 && name1 != "" && name2 != "") {
-      //预言家
+      //占卜师
       str = "你得知了$name1和$name2中${have ? "存在" : "不存在"}恶魔";
     } else if (roleId == 7 && role != 0) {
-      //送葬者
+      //掘墓人
       str = "你得知了他是${XConfig.roleMap[role]}";
     } else if (roleId == 9 && name != "" && role != 0) {
-      //养鸦人
+      //守鸦人
       str = "你查验了$name得知了他${XConfig.roleMap[role]}";
     }
     return str;
@@ -98,7 +98,7 @@ class _JiuguiWidgetState extends State<JiuguiWidget> {
           SizedBox(
             height: 50.w,
           ),
-          if (roleId == 4 || roleId == 5) //厨师或者神使 给他个数字
+          if (roleId == 4 || roleId == 5) //厨师或者共情者 给他个数字
             Wrap(
               spacing: 30.w,
               runSpacing: 20.w,

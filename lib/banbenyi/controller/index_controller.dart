@@ -35,15 +35,15 @@ class IndexController extends GetxController {
       "isSelect": false,
     },
     5: {
-      "name": "神使",
+      "name": "共情者",
       "isSelect": false,
     },
     6: {
-      "name": "预言家",
+      "name": "占卜师",
       "isSelect": false,
     },
     7: {
-      "name": "送葬者",
+      "name": "掘墓人",
       "isSelect": false,
     },
     8: {
@@ -51,11 +51,11 @@ class IndexController extends GetxController {
       "isSelect": false,
     },
     9: {
-      "name": "养鸦人",
+      "name": "守鸦人",
       "isSelect": false,
     },
     10: {
-      "name": "处女",
+      "name": "圣女",
       "isSelect": false,
     },
     11: {
@@ -63,11 +63,11 @@ class IndexController extends GetxController {
       "isSelect": false,
     },
     12: {
-      "name": "军人",
+      "name": "士兵",
       "isSelect": false,
     },
     13: {
-      "name": "镇长",
+      "name": "市长",
       "isSelect": false,
     },
     14: {
@@ -75,7 +75,7 @@ class IndexController extends GetxController {
       "isSelect": false,
     },
     15: {
-      "name": "家仆",
+      "name": "管家",
       "isSelect": false,
     },
     16: {
@@ -99,7 +99,7 @@ class IndexController extends GetxController {
       "isSelect": false,
     },
     21: {
-      "name": "毒师",
+      "name": "下毒者",
       "isSelect": false,
     },
     22: {
@@ -127,7 +127,7 @@ class IndexController extends GetxController {
     }
     //再更新玩家信息
     if (roleId == 6) {
-      //预言家设置宿敌
+      //占卜师设置宿敌
       if (lastEnemyName != "") {
         peopleMap[lastEnemyName]?['enemy'] = false;
       }

@@ -288,7 +288,7 @@ class _RoleIndexState extends State<RoleIndex> {
                         SizedBox(
                           height: 20.w,
                         ),
-                        //预言家配置
+                        //占卜师配置
                         if (roleId == 6) const Text("宿敌："),
                         if (roleId == 6)
                           SizedBox(
@@ -368,7 +368,7 @@ class _RoleIndexState extends State<RoleIndex> {
     return widgetList;
   }
 
-  //选择宿敌列表（预言家）
+  //选择宿敌列表（占卜师）
   List<Widget> enemyWidgetList(String name, StateSetter state) {
     List<Widget> widgetList = [];
     indexController.peopleMap.forEach((key, value) {
