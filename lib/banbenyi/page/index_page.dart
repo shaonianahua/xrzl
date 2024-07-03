@@ -28,7 +28,7 @@ class _IndexPageState extends State<IndexPage> {
         appBar: XWidget.myAppbar("血染钟楼-人员确定", false, context),
         body: Padding(
           padding: EdgeInsets.symmetric(vertical: 30.w, horizontal: 30.w),
-          child: Column(
+          child: ListView(
             children: [
               Text(
                 "参与人数",

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:xrzl/banbenyi/controller/index_controller.dart';
+import 'package:xrzl/banbenyi/page/first_page.dart';
 import 'package:xrzl/common/widget/xconfig.dart';
 import 'package:xrzl/common/widget/xwidget.dart';
 
@@ -143,6 +144,8 @@ class _PlayerPageState extends State<PlayerPage> {
                 return Container();
               }
             }),
+            SizedBox(height: 50.w,),
+            remarkBtn()
           ],
         ),
       ),
@@ -249,6 +252,33 @@ class _PlayerPageState extends State<PlayerPage> {
             borderRadius: BorderRadius.all(Radius.circular(8.w))),
         child: Text(
           "隐藏/展示信息",
+          style: TextStyle(color: Colors.white, fontSize: 32.sp),
+        ),
+      ),
+    );
+  }
+
+  //游戏重制按钮
+  Widget remarkBtn() {
+    return GestureDetector(
+      onTap: () {
+        Get.delete<IndexController>();
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const FirstPage(),
+            ),
+            (route) => route == null);
+      },
+      child: Container(
+        width: 500.w,
+        height: 70.w,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: const Color(0xFF2E71F8),
+            borderRadius: BorderRadius.all(Radius.circular(8.w))),
+        child: Text(
+          "重制",
           style: TextStyle(color: Colors.white, fontSize: 32.sp),
         ),
       ),

@@ -241,11 +241,8 @@ class IndexController extends GetxController {
     //2 黑夜发送 只发送查验到的信息 不发送死亡信息
     //3 白天发送 只发送玩家信息 包括死亡状态 刚进白天和即将进入黑夜都需要
     Map<String, dynamic> result = {};
-    if (roleId == 0) {
-      result['user'] = peopleMap;
-    } else {
-      // String str = await DioUtils.getInfo();
-      // result = jsonDecode(str);
+    result['user'] = peopleMap;
+    if (roleId != 0) {
       result['content'] = {"roleId": roleId, "data": content};
     }
     DioUtils.saveInfo(jsonEncode(result));
